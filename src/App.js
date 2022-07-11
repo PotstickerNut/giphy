@@ -1,6 +1,9 @@
 import "./App.css";
 import { Component } from "react";
 
+import ApiButton from "./components/ApiButton";
+import RenderGiphy from "./components/RenderGiphy";
+
 class App extends Component {
   state = {
     giphy: [],
@@ -26,7 +29,10 @@ class App extends Component {
       () => {
         fetch(this.state.URL)
           .then((res) => res.json())
-          .then((json) => this.setState({ giphy: json.data }));
+          .then((json) => {
+            console.log(json.data);
+            this.setState({ giphy: json.data });
+          });
       }
     );
   };
@@ -35,15 +41,8 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Giphy</h1>
-        <button onSubmit={this.handleSubmit}>Make API Call Again</button>
-        <br />
-        <br />
-        {this.state.giphy.map((g) => (
-          <div key={g.id}>
-            <img src={g.images.original.url} alt={g.title} />
-            <h3>{g.title}</h3>
-          </div>
-        ))}
+        <ApiButton handleSubmit={this.handleSubmit} />
+        <RenderGiphy giphy={this.state.giphy} />
       </div>
     );
   }
