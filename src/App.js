@@ -1,51 +1,23 @@
 import "./App.css";
-import { Component } from "react";
+import { useState, useEffect } from "react";
 
-import ApiButton from "./components/ApiButton";
-import RenderGiphy from "./components/RenderGiphy";
+const App = () => {
+  // sets up our app state
+  const [giphys, setGiphys] = useState(null);
 
-class App extends Component {
-  state = {
-    giphy: [],
-  };
-
-  componentDidMount() {
+  useEffect(() => {
     fetch(
       "https://api.giphy.com/v1/gifs/trending?api_key=yIooyDxILHyVMvOrMOc6FvIWMCN6Tjzc&limit=25&rating=g"
     )
       .then((res) => res.json())
-      .then((json) => {
-        console.log(json.data);
-        this.setState({ giphy: json.data });
-      });
-  }
+      .then((json) => setGiphys(json.data));
+  }, []);
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState(
-      {
-        URL: "https://api.giphy.com/v1/gifs/random?api_key=yIooyDxILHyVMvOrMOc6FvIWMCN6Tjzc&tag=25&rating=g",
-      },
-      () => {
-        fetch(this.state.URL)
-          .then((res) => res.json())
-          .then((json) => {
-            console.log(json.data);
-            this.setState({ giphy: json.data });
-          });
-      }
-    );
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <h1>Giphy</h1>
-        <ApiButton handleSubmit={this.handleSubmit} />
-        <RenderGiphy giphy={this.state.giphy} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <h1>Giphy App</h1>
+    </div>
+  );
+};
 
 export default App;
