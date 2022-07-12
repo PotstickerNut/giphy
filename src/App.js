@@ -24,7 +24,7 @@ class App extends Component {
     event.preventDefault();
     this.setState(
       {
-        URL: "https://api.giphy.com/v1/gifs/random?api_key=yIooyDxILHyVMvOrMOc6FvIWMCN6Tjzc&tag=&rating=g",
+        URL: "https://api.giphy.com/v1/gifs/random?api_key=yIooyDxILHyVMvOrMOc6FvIWMCN6Tjzc&tag=25&rating=g",
       },
       () => {
         fetch(this.state.URL)
