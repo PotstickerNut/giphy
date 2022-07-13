@@ -1,4 +1,7 @@
 import "./App.css";
+import GiphyList from "./components/GiphyList";
+import About from "./components/pages/About";
+import { Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const App = () => {
@@ -16,6 +19,15 @@ const App = () => {
   return (
     <div className="App">
       <h1>Giphy App</h1>
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+
+        <Route path="/">
+          {giphys && <GiphyList giphys={giphys} msg="GIPHYS COMPONENT" />}
+        </Route>
+      </Switch>
     </div>
   );
 };
